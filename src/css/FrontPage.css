@@ -1,13 +1,15 @@
 .FrontPage {
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   padding-top: 5%;
   padding-left: 5%;
+  height: 100vh;
 }
 
 .FloatingBox1 {
+  position: relative;
 }
 
 .FloatingBox1 > * {
@@ -90,11 +92,17 @@
   content: ">";
 }
 
+.EpicBoxClickable > h1:hover {
+  cursor: pointer;
+  color: #007acc;
+}
+
 .EpicBox > p {
 }
 
 .Signature {
-  position: fixed;
+  position: absolute;
+  z-index: 200;
   width: 20vw;
   height: auto;
   right: 50%;

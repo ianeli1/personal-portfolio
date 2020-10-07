@@ -1,0 +1,28 @@
+.ProjectInfo {
+  position: fixed;
+  top: 0;
+  left: 70%;
+  width: 30%;
+  height: 100vh;
+  z-index: 200 !important;
+  padding: 20px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ProjectInfoInner {
+}
+
+.ProjectInfoInner > h1 {
+  font-family: Consolas;
+  font-size: 3rem;
+  line-height: 3rem;
+  color: #cda869;
+}
+
+.ProjectInfoInner > p {
+  font-family: Consolas;
+  font-size: 2.5rem;
+  color: white;
+}
