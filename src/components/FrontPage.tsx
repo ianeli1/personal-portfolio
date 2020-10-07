@@ -2,12 +2,17 @@ import { Paper, Typography } from "@material-ui/core";
 import React from "react";
 import { ReactComponent as Signature } from "../signature.svg";
 import "../css/FrontPage.css";
+import { EpicBox } from "./EpicBox";
 
 const [firstName, lastName] = ["ian", "lastname"];
 
-export function FrontPage() {
+interface FrontPageProps {
+  ref?: React.RefObject<HTMLDivElement>;
+}
+
+export function FrontPage(props: FrontPageProps) {
   return (
-    <div className="FrontPage">
+    <div className="FrontPage" ref={props.ref}>
       <div className="FloatingBox1">
         <Signature className="Signature" />
         <h1>hola,</h1>
@@ -17,12 +22,10 @@ export function FrontPage() {
       </div>
       <div className="FloatingBox2">
         <h1>{"() =>"}</h1>
-        <Paper className="EpicBox" elevation={2}>
-          <p>and i'm a:</p>
-          <h1>Full-Stack developer*</h1>
-          <h1>cool guy</h1>
-          <h1>*in the making</h1>
-        </Paper>
+        <EpicBox
+          title="and i'm a"
+          elements={["Full-Stack developer*", "cool guy", "*in the making"]}
+        />
       </div>
     </div>
   );

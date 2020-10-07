@@ -23,6 +23,10 @@
   height: 100vh;
   width: 100vw;
   background: #505050;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  pointer-events: auto;
 }
 
 .AppFront {
@@ -38,6 +42,7 @@
 .AppFront1 {
   filter: drop-shadow(10px 0 100px #141414);
   transition: filter 500ms;
+  pointer-events: auto;
 }
 
 .AppFront1 > div {
@@ -48,6 +53,7 @@
 .AppFront2 {
   filter: drop-shadow(10px 0 10px #141414);
   transition: filter 500ms;
+  pointer-events: none;
 }
 
 .AppFront2 > div {
@@ -74,4 +80,15 @@
 
 .CodeIndicator {
   background-color: darkgray !important;
+}
+
+.Scroller {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.Scroller > div {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

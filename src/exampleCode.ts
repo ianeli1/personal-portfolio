@@ -54,3 +54,29 @@ export default {
     content: string;
   };
 };
+
+declare global {
+  interface GitHubProject {
+    name: string;
+    html_url: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+    homepage: string;
+    language: null | string;
+    languages_url: string; //add a button to see all?
+  }
+}
+
+export const exampleProjects: GitHubProject[] = [
+  {
+    name: "SimpleChat",
+    html_url: "",
+    description: "For simple chatting!",
+    created_at: "2020-09-24T22:35:14Z",
+    updated_at: "2020-09-24T22:35:14Z",
+    homepage: "",
+    language: "typescript",
+    languages_url: "",
+  },
+];
