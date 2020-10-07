@@ -1,0 +1,102 @@
+.FrontPage {
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5%;
+  padding-left: 5%;
+}
+
+.FloatingBox1 {
+}
+
+.FloatingBox1 > * {
+  margin: 0;
+}
+/*hola,*/
+.FloatingBox1 > h1 {
+  font-family: Consolas;
+  font-size: 5rem;
+  color: #cda869;
+}
+
+/*my name is*/
+.FloatingBox1 > h2 {
+  color: #333333;
+  font-size: 3rem;
+  line-height: 4rem;
+  margin-bottom: 2rem;
+}
+
+/*firstName*/
+.FloatingBox1 > h3 {
+  color: #505050;
+  font-size: 8rem;
+  font-family: sans-serif;
+  line-height: 6rem;
+  text-shadow: -2px -2px 0 #111111, 2px -2px 0 #111111, -2px 2px 0 #111111,
+    2px 2px 0 #111111;
+}
+
+/*lastName*/
+.FloatingBox1 > h4 {
+  font-family: Consolas;
+  color: #111111;
+  font-size: 8rem;
+  line-height: 7rem;
+}
+
+.FloatingBox2 {
+  display: flex;
+  margin: 24px;
+}
+
+.FloatingBox2 > h1 {
+  font-family: Consolas;
+  font-weight: 100;
+  font-size: 3rem;
+  color: #222222;
+  margin: 32px;
+}
+
+.EpicBox {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background-color: #222222 !important;
+}
+
+.EpicBox > p {
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin: 0;
+  margin-left: 8px;
+  color: #397300;
+}
+
+.EpicBox > h1 {
+  margin: 8px;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #505050;
+  color: #cda869;
+  font-family: Consolas;
+  font-size: 4rem;
+  font-weight: 200;
+}
+
+.EpicBox > h1::before {
+  content: ">";
+}
+
+.EpicBox > p {
+}
+
+.Signature {
+  position: fixed;
+  width: 20vw;
+  height: auto;
+  right: 50%;
+  fill: #cda869;
+}

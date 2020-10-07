@@ -1,0 +1,77 @@
+.AppBar {
+  background-color: rgba(0, 0, 0, 0) !important;
+  box-shadow: none !important;
+  background: linear-gradient(
+    135deg,
+    rgba(19, 19, 19, 1) 0%,
+    rgba(19, 19, 19, 1) 30%,
+    rgba(252, 176, 69, 0) 100%
+  );
+  width: 51% !important;
+  position: absolute !important;
+  left: 0 !important;
+}
+
+.AppContainer {
+}
+
+.AppFront > div {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #505050;
+}
+
+.AppFront {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.AppFront1 {
+  filter: drop-shadow(10px 0 100px #141414);
+  transition: filter 500ms;
+}
+
+.AppFront1 > div {
+  clip-path: polygon(0 0, 50% 0, 80% 100%, 0% 100%);
+  transition: clip-path 500ms;
+}
+
+.AppFront2 {
+  filter: drop-shadow(10px 0 10px #141414);
+  transition: filter 500ms;
+}
+
+.AppFront2 > div {
+  clip-path: polygon(0 0, 70% 0, 70% 100%, 0% 100%);
+
+  transition: clip-path 500ms;
+}
+
+.AppBackground {
+  position: absolute;
+  background: #222222;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 50vw;
+  z-index: 1;
+  overflow: hidden;
+  padding-left: 40px;
+}
+
+.hljs {
+  overflow: hidden !important;
+}
+
+.CodeIndicator {
+  background-color: darkgray !important;
+}

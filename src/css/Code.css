@@ -1,0 +1,33 @@
+.CodeAppBar {
+  background-color: #222222 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  position: relative !important;
+  left: 0 !important;
+}
+
+.CodeEditor {
+}
+
+.CodeTab {
+  min-width: unset !important;
+  display: flex !important;
+  min-height: unset !important;
+}
+
+.CodeTabWrapper {
+  text-transform: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch;
+}
+
+.CodeTabWrapper > svg {
+  height: 0.875rem;
+  width: auto;
+  fill: #007acc;
+  margin: 4px;
+}
+
+.CodeLogo {
+}

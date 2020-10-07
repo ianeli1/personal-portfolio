@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import "./App.css";
+import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
+import "./css/App.css";
+import { Code } from "./components/codeThing";
+import { FrontPage } from "./components/FrontPage";
 
 function App() {
+  function handleChange(_e: any, newValue: number) {}
+  const [currentId, setCurrentId] = useState(0);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <AppBar className="AppBar">
+        <Tabs value={currentId} onChange={(_e, id) => void setCurrentId(id)}>
+          <Tab label="@me" onClick={() => console.log("idk")} />
+          <Tab label="@myProjects" />
+        </Tabs>
+      </AppBar>
+      <Container className="AppContainer">
+        <div
+          className={`AppFront ${currentId == 0 ? "AppFront1" : "AppFront2"}`}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <div>
+            <FrontPage />
+          </div>
+        </div>
+        <div className="AppBackground">
+          <Code />
+        </div>
+      </Container>
+    </>
   );
 }
 
