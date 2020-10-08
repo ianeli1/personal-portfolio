@@ -1,4 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import "./App.css";
 import {
   AppBar,
@@ -6,27 +13,36 @@ import {
   Divider,
   Fade,
   Hidden,
+  isWidthUp,
   Tab,
   Tabs,
+  withWidth,
 } from "@material-ui/core";
 import "./css/App.css";
-import { Code } from "./components/codeThing";
 import { FrontPage } from "./components/FrontPage";
 import { Projects } from "./components/Projects";
 import { exampleProjects } from "./exampleCode";
 import Axios from "axios";
 import { ProjectInfo } from "./components/ProjectInfo";
 import { AboutMe } from "./components/AboutMe";
+import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 
 const githubURL = "https://api.github.com/users/ianeli1/repos";
+const Code = lazy(() => import("./components/codeThing"));
 
-function App() {
+interface AppProps {
+  width: Breakpoint;
+}
+
+function App(props: AppProps) {
   const [currentId, setCurrentId] = useState(0);
   const [projectsList, setProjects] = useState(exampleProjects);
   const [loading, setLoading] = useState(true);
+  const [projectModal, setProjectModal] = useState(false);
   const [currentProjectId, setCurrentProjectId] = useState(0);
   const frontPageRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const aboutMeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -71,14 +87,24 @@ function App() {
                   projectsRef.current?.scrollIntoView({ behavior: "smooth" })
                 }
               />
-              <Tab label="aboutMe" classes={tabClasses} />
+              <Tab
+                label="aboutMe"
+                classes={tabClasses}
+                onClick={() =>
+                  aboutMeRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
+              />
             </Tabs>
           </AppBar>
         ),
         [currentId]
       )}
       <Container className="AppContainer">
-        <div className={`AppFront AppFront${currentId + 1}`}>
+        <div
+          className={`AppFront AppFront${
+            isWidthUp("lg", props.width) ? currentId + 1 : "Mobile"
+          }`}
+        >
           {useMemo(
             () => (
               <div>
@@ -91,9 +117,17 @@ function App() {
                     <Projects
                       loading={loading}
                       projects={projectsList}
-                      onProjectClick={(key) => void setCurrentProjectId(key)}
+                      onProjectClick={(key) => {
+                        setCurrentProjectId(key);
+                        setProjectModal(true);
+                      }}
                     />
                   </div>
+                  <Hidden lgUp>
+                    <div ref={aboutMeRef} className="EpicDivIdkIRanOutOfNames">
+                      <AboutMe />
+                    </div>
+                  </Hidden>
                 </div>
               </div>
             ),
@@ -101,21 +135,27 @@ function App() {
           )}
         </div>
         <div className="AppBackground">
-          <Hidden xsDown>
-            <Fade in={currentId === 0} unmountOnExit>
+          <Hidden mdDown>
+            <Suspense fallback={null}>
+              <Fade in={currentId === 0} unmountOnExit>
+                <div>
+                  <Code />
+                </div>
+              </Fade>
+            </Suspense>
+            <Fade in={currentId === 2}>
               <div>
-                <Code />
+                <AboutMe />
               </div>
             </Fade>
           </Hidden>
           <Fade in={currentId === 1}>
             <div>
-              <ProjectInfo project={projectsList[currentProjectId]} />
-            </div>
-          </Fade>
-          <Fade in={currentId === 2}>
-            <div>
-              <AboutMe />
+              <ProjectInfo
+                project={projectsList[currentProjectId]}
+                open={projectModal}
+                onClose={() => setProjectModal(false)}
+              />
             </div>
           </Fade>
         </div>
@@ -124,4 +164,4 @@ function App() {
   );
 }
 
-export default App;
+export default withWidth()(App);

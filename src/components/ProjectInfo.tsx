@@ -1,17 +1,90 @@
+import { Backdrop, Fade, isWidthUp, Modal, withWidth } from "@material-ui/core";
+import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 import Axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "../css/ProjectInfo.css";
 
 interface ProjectInfoProps {
   project: GitHubProject;
+  width: Breakpoint;
+  open: boolean;
+  onClose: () => void;
 }
 
-export function ProjectInfo(props: ProjectInfoProps) {
+export function ProjectInfoRaw(props: ProjectInfoProps) {
   const { project } = props;
   const top = useRef<HTMLDivElement>(null);
   const [languages, setLanguages] = useState<{ [key: string]: number } | null>(
     project.language ? { [project.language]: 1 } : null
   );
+
+  const isLg = isWidthUp("lg", props.width);
+
+  const content = useMemo(
+    () => (
+      <>
+        <div ref={top} />
+        <div className="ProjectInfoInner">
+          <h1>name:</h1>
+          <p>{project.name}</p>
+          {project.homepage && (
+            <>
+              <h1>website:</h1>
+              <p>
+                <a
+                  href={project.homepage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {project.homepage}
+                </a>
+              </p>
+            </>
+          )}
+          {project.description && (
+            <>
+              <h1>description:</h1>
+              <p>{project.description}</p>
+            </>
+          )}
+          <h1>languages:</h1>
+          <p>
+            {languages ? (
+              <>
+                {Object.keys(languages)
+                  .reduce((acc: string, cv) => `${acc} ${cv},`, "")
+                  .slice(1, -1)}
+                {Object.keys(languages).length === 1 && (
+                  <a onClick={getLanguages} style={{ cursor: "pointer" }}>
+                    , ...
+                  </a>
+                )}
+              </>
+            ) : (
+              "no info provided"
+            )}
+          </p>
+          <h1>other_info:</h1>
+          <p>
+            date_created: {project.created_at.slice(0, 10)}
+            <br />
+            last_update: {getDateDif(project.updated_at)} days ago
+          </p>
+          <p>
+            <a
+              href={project.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              open on GitHub
+            </a>
+          </p>
+        </div>
+      </>
+    ),
+    [project, languages]
+  );
+
   useEffect(() => {
     top.current?.scrollIntoView({ behavior: "smooth" });
     setLanguages(project.language ? { [project.language]: 1 } : null);
@@ -36,61 +109,22 @@ export function ProjectInfo(props: ProjectInfoProps) {
     );
   }
 
-  return (
-    <div className="ProjectInfo">
-      <div ref={top} />
-      <div className="ProjectInfoInner">
-        <h1>name:</h1>
-        <p>{project.name}</p>
-        {project.homepage && (
-          <>
-            <h1>website:</h1>
-            <p>
-              <a
-                href={project.homepage}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {project.homepage}
-              </a>
-            </p>
-          </>
-        )}
-        {project.description && (
-          <>
-            <h1>description:</h1>
-            <p>{project.description}</p>
-          </>
-        )}
-        <h1>languages:</h1>
-        <p>
-          {languages ? (
-            <>
-              {Object.keys(languages)
-                .reduce((acc: string, cv) => `${acc} ${cv},`, "")
-                .slice(1, -1)}
-              {Object.keys(languages).length === 1 && (
-                <a onClick={getLanguages} style={{ cursor: "pointer" }}>
-                  , ...
-                </a>
-              )}
-            </>
-          ) : (
-            "no info provided"
-          )}
-        </p>
-        <h1>other_info:</h1>
-        <p>
-          date_created: {project.created_at.slice(0, 10)}
-          <br />
-          last_update: {getDateDif(project.updated_at)} days ago
-        </p>
-        <p>
-          <a href={project.html_url} target="_blank" rel="noopener noreferrer">
-            open on GitHub
-          </a>
-        </p>
-      </div>
-    </div>
+  return isLg ? (
+    <div className="ProjectInfo">{content}</div>
+  ) : (
+    <Modal
+      open={props.open}
+      onClose={props.onClose}
+      className="ProjectInfoModal"
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{ timeout: 500 }}
+    >
+      <Fade in={props.open}>
+        <div>{content}</div>
+      </Fade>
+    </Modal>
   );
 }
+
+export const ProjectInfo = withWidth()(ProjectInfoRaw);

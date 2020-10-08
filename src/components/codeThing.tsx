@@ -45,7 +45,7 @@ function useSubscribe(fullText: string) {
   return { text, done };
 }
 
-export function Code() {
+export default function Code() {
   const [currId, setCurrId] = useState(0);
   const { text, done } = useSubscribe(exampleCode[currId].content);
   const tabClass = { root: "CodeTab", wrapper: "CodeTabWrapper" };
