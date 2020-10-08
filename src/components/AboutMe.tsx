@@ -16,7 +16,8 @@ export function AboutMe() {
         <h1>what skills do i have?</h1>
         <p>
           - HTML/CSS
-          <br />- Javascript/Typescript/Python/C++
+          <br />- Javascript/Typescript
+          <br />- Python/C++
           <br />- React
           <br />- Node.JS
           <br />- Serverless applications (Firebase)
