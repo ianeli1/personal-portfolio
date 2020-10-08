@@ -46,7 +46,11 @@ export function ProjectInfo(props: ProjectInfoProps) {
           <>
             <h1>website:</h1>
             <p>
-              <a href={project.homepage} target="_blank">
+              <a
+                href={project.homepage}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {project.homepage}
               </a>
             </p>
@@ -65,7 +69,7 @@ export function ProjectInfo(props: ProjectInfoProps) {
               {Object.keys(languages)
                 .reduce((acc: string, cv) => `${acc} ${cv},`, "")
                 .slice(1, -1)}
-              {Object.keys(languages).length == 1 && (
+              {Object.keys(languages).length === 1 && (
                 <a onClick={getLanguages} style={{ cursor: "pointer" }}>
                   , ...
                 </a>
@@ -77,11 +81,12 @@ export function ProjectInfo(props: ProjectInfoProps) {
         </p>
         <h1>other_info:</h1>
         <p>
-          {`date_created: ${project.created_at.slice(0, 10)}
-last_update: ${getDateDif(project.updated_at)} days ago`}
+          date_created: {project.created_at.slice(0, 10)}
+          <br />
+          last_update: {getDateDif(project.updated_at)} days ago
         </p>
         <p>
-          <a href={project.html_url} target="_blank">
+          <a href={project.html_url} target="_blank" rel="noopener noreferrer">
             open on GitHub
           </a>
         </p>

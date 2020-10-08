@@ -32,12 +32,10 @@
 
 /*firstName*/
 .FloatingBox1 > h3 {
-  color: #505050;
+  color: #111111;
   font-size: 8rem;
   font-family: sans-serif;
   line-height: 6rem;
-  text-shadow: -2px -2px 0 #111111, 2px -2px 0 #111111, -2px 2px 0 #111111,
-    2px 2px 0 #111111;
 }
 
 /*lastName*/
@@ -96,9 +94,9 @@
   cursor: pointer;
   color: #007acc;
 }
-
+/*
 .EpicBox > p {
-}
+}*/
 
 .Signature {
   position: absolute;

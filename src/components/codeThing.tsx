@@ -1,4 +1,4 @@
-import { AppBar, Tabs, Tab, SvgIcon } from "@material-ui/core";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import Highlight from "react-highlight";
 import exampleCode from "../exampleCode";
@@ -62,8 +62,9 @@ export function Code() {
     <>
       <AppBar className="CodeAppBar">
         <Tabs value={currId} classes={{ indicator: "CodeIndicator" }}>
-          {Object.values(exampleCode).map(({ title, content }) => (
+          {Object.values(exampleCode).map(({ title, content }, index) => (
             <Tab
+              key={index}
               label={title}
               icon={<Logo className="CodeLogo" />}
               classes={{ root: "CodeTab", wrapper: "CodeTabWrapper" }}
