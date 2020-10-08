@@ -232,9 +232,10 @@ declare global {
 
 export const exampleProjects: GitHubProject[] = [
   {
-    name: "SimpleChat",
+    name: "Is github down?",
     html_url: "",
-    description: "For simple chatting!",
+    description:
+      "looks like github is down, or my code broke. could you please send me an email? thanks",
     created_at: "2020-09-24T22:35:14Z",
     updated_at: "2020-09-24T22:35:14Z",
     homepage: "",
@@ -243,5 +244,5 @@ export const exampleProjects: GitHubProject[] = [
   },
 ];
 
-export const [firstName, lastName] = ["Ian", "Lastname"];
-export const email = "email goes here";
+export const [firstName, lastName] = ["Ian", "Elizondo"];
+export const email = "ianelicha@gmail.com";
