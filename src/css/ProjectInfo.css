@@ -5,14 +5,14 @@
   width: 30%;
   height: 100vh;
   z-index: 200 !important;
-  padding: 20px;
+  padding: 24px;
 
   overflow-y: auto;
   overflow-x: hidden;
 }
-
+/*
 .ProjectInfoInner {
-}
+}*/
 
 .ProjectInfoInner > h1 {
   font-family: Consolas;

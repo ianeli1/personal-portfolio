@@ -4,20 +4,20 @@
   max-width: 70%;
 }
 
-.ProjectTitleBox {
-}
-
 .ProjectTitleBox > h1 {
   font-family: Consolas;
   font-size: 5rem;
   color: #cda869;
 }
-
+/*
 .ProjectsMain {
 }
 
 .ProjectEntry {
 }
+
+.ProjectTitleBox {
+}*/
 
 @keyframes spinningThing {
   25% {

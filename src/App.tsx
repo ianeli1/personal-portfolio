@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import logo from "./logo.svg";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
-import { AppBar, Container, Fade, Tab, Tabs } from "@material-ui/core";
+import { AppBar, Container, Divider, Fade, Tab, Tabs } from "@material-ui/core";
 import "./css/App.css";
 import { Code } from "./components/codeThing";
 import { FrontPage } from "./components/FrontPage";
@@ -10,11 +8,11 @@ import { Projects } from "./components/Projects";
 import { exampleProjects } from "./exampleCode";
 import Axios from "axios";
 import { ProjectInfo } from "./components/ProjectInfo";
+import { AboutMe } from "./components/AboutMe";
 
 const githubURL = "https://api.github.com/users/ianeli1/repos";
 
 function App() {
-  function handleChange(_e: any, newValue: number) {}
   const [currentId, setCurrentId] = useState(0);
   const [projectsList, setProjects] = useState(exampleProjects);
   const [loading, setLoading] = useState(true);
@@ -25,7 +23,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const req = await Axios.get(githubURL);
-      if (req.status == 200) {
+      if (req.status === 200) {
         setProjects(req.data);
         setLoading(false);
       } else {
@@ -35,37 +33,47 @@ function App() {
     })();
   }, []);
 
+  const tabClasses = {
+    root: "AppBarTab",
+    wrapper: "AppBarTabWrapper",
+    selected: "AppBarTabSelected",
+  };
+
   return (
     <>
       <AppBar className="AppBar">
-        <Tabs value={currentId} onChange={(_e, id) => void setCurrentId(id)}>
+        <Tabs
+          value={currentId}
+          onChange={(_e, id) => void setCurrentId(id)}
+          classes={{ indicator: "AppBarTabsIndicator" }}
+        >
           <Tab
-            label="@me"
+            label="home"
+            classes={tabClasses}
             onClick={() => {
               frontPageRef.current?.scrollIntoView({ behavior: "smooth" });
             }}
           />
           <Tab
-            label="@myProjects"
+            label="myProjects"
+            classes={tabClasses}
             onClick={() =>
               projectsRef.current?.scrollIntoView({ behavior: "smooth" })
             }
           />
+          <Tab label="aboutMe" classes={tabClasses} />
         </Tabs>
       </AppBar>
       <Container className="AppContainer">
-        <div
-          className={`AppFront ${currentId == 0 ? "AppFront1" : "AppFront2"}`}
-        >
+        <div className={`AppFront AppFront${currentId + 1}`}>
           <div>
             <div className="Scroller">
               <div ref={frontPageRef}>
-                <FrontPage ref={frontPageRef} />
+                <FrontPage />
               </div>
-
+              <Divider orientation="horizontal" style={{ height: 10 }} />
               <div ref={projectsRef}>
                 <Projects
-                  ref={projectsRef}
                   loading={loading}
                   projects={projectsList}
                   onProjectClick={(key) => void setCurrentProjectId(key)}
@@ -75,14 +83,19 @@ function App() {
           </div>
         </div>
         <div className="AppBackground">
-          <Fade in={currentId == 0}>
+          <Fade in={currentId === 0} unmountOnExit>
             <div>
               <Code />
             </div>
           </Fade>
-          <Fade in={currentId == 1}>
+          <Fade in={currentId === 1}>
             <div>
               <ProjectInfo project={projectsList[currentProjectId]} />
+            </div>
+          </Fade>
+          <Fade in={currentId === 2}>
+            <div>
+              <AboutMe />
             </div>
           </Fade>
         </div>

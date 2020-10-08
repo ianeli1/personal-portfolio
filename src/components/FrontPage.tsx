@@ -1,10 +1,8 @@
-import { Paper, Typography } from "@material-ui/core";
 import React from "react";
 import { ReactComponent as Signature } from "../signature.svg";
 import "../css/FrontPage.css";
 import { EpicBox } from "./EpicBox";
-
-const [firstName, lastName] = ["ian", "lastname"];
+import { firstName, lastName } from "../exampleCode";
 
 interface FrontPageProps {
   ref?: React.RefObject<HTMLDivElement>;
@@ -17,8 +15,8 @@ export function FrontPage(props: FrontPageProps) {
         <Signature className="Signature" />
         <h1>hola,</h1>
         <h2>my name is</h2>
-        <h3>{firstName}</h3>
-        <h4>{lastName}</h4>
+        <h3>{firstName.toLowerCase()}</h3>
+        <h4>{lastName.toLowerCase()}</h4>
       </div>
       <div className="FloatingBox2">
         <h1>{"() =>"}</h1>

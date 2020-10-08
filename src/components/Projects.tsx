@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { EpicBox } from "./EpicBox";
 import "../css/Projects.css";
-import { exampleProjects } from "../exampleCode";
 interface ProjectsProps {
   loading: boolean;
   projects: GitHubProject[];
