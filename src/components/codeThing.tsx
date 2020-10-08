@@ -1,5 +1,5 @@
 import { AppBar, Tabs, Tab } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Highlight from "react-highlight";
 import exampleCode from "../exampleCode";
 import "../css/Code.css";
@@ -38,7 +38,7 @@ function useSubscribe(fullText: string) {
         clearInterval(int);
       }
     }, interval);
-    setTimeout(() => clearInterval(int), timeout);
+    setTimeout(() => setDone(true), timeout);
     return () => void clearInterval(int);
   }, [fullText]);
 
@@ -48,7 +48,8 @@ function useSubscribe(fullText: string) {
 export function Code() {
   const [currId, setCurrId] = useState(0);
   const { text, done } = useSubscribe(exampleCode[currId].content);
-
+  const tabClass = { root: "CodeTab", wrapper: "CodeTabWrapper" };
+  const tsLogo = <Logo className="CodeLogo" />;
   useEffect(() => {
     console.log("done changed to", done);
     if (done) {
@@ -60,18 +61,24 @@ export function Code() {
 
   return (
     <>
-      <AppBar className="CodeAppBar">
-        <Tabs value={currId} classes={{ indicator: "CodeIndicator" }}>
-          {Object.values(exampleCode).map(({ title, content }, index) => (
-            <Tab
-              key={index}
-              label={title}
-              icon={<Logo className="CodeLogo" />}
-              classes={{ root: "CodeTab", wrapper: "CodeTabWrapper" }}
-            />
-          ))}
-        </Tabs>
-      </AppBar>
+      {useMemo(
+        () => (
+          <AppBar className="CodeAppBar">
+            <Tabs value={currId} classes={{ indicator: "CodeIndicator" }}>
+              {Object.values(exampleCode).map(({ title, content }, index) => (
+                <Tab
+                  key={index}
+                  label={title}
+                  icon={tsLogo}
+                  classes={tabClass}
+                />
+              ))}
+            </Tabs>
+          </AppBar>
+        ),
+        [currId]
+      )}
+
       <div className="CodeEditor">
         <Highlight>{text}</Highlight>
       </div>

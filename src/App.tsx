@@ -1,6 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
-import { AppBar, Container, Divider, Fade, Tab, Tabs } from "@material-ui/core";
+import {
+  AppBar,
+  Container,
+  Divider,
+  Fade,
+  Hidden,
+  Tab,
+  Tabs,
+} from "@material-ui/core";
 import "./css/App.css";
 import { Code } from "./components/codeThing";
 import { FrontPage } from "./components/FrontPage";
@@ -41,53 +49,65 @@ function App() {
 
   return (
     <>
-      <AppBar className="AppBar">
-        <Tabs
-          value={currentId}
-          onChange={(_e, id) => void setCurrentId(id)}
-          classes={{ indicator: "AppBarTabsIndicator" }}
-        >
-          <Tab
-            label="home"
-            classes={tabClasses}
-            onClick={() => {
-              frontPageRef.current?.scrollIntoView({ behavior: "smooth" });
-            }}
-          />
-          <Tab
-            label="myProjects"
-            classes={tabClasses}
-            onClick={() =>
-              projectsRef.current?.scrollIntoView({ behavior: "smooth" })
-            }
-          />
-          <Tab label="aboutMe" classes={tabClasses} />
-        </Tabs>
-      </AppBar>
+      {useMemo(
+        () => (
+          <AppBar className="AppBar">
+            <Tabs
+              value={currentId}
+              onChange={(_e, id) => void setCurrentId(id)}
+              classes={{ indicator: "AppBarTabsIndicator" }}
+            >
+              <Tab
+                label="home"
+                classes={tabClasses}
+                onClick={() => {
+                  frontPageRef.current?.scrollIntoView({ behavior: "smooth" });
+                }}
+              />
+              <Tab
+                label="myProjects"
+                classes={tabClasses}
+                onClick={() =>
+                  projectsRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
+              />
+              <Tab label="aboutMe" classes={tabClasses} />
+            </Tabs>
+          </AppBar>
+        ),
+        [currentId]
+      )}
       <Container className="AppContainer">
         <div className={`AppFront AppFront${currentId + 1}`}>
-          <div>
-            <div className="Scroller">
-              <div ref={frontPageRef}>
-                <FrontPage />
+          {useMemo(
+            () => (
+              <div>
+                <div className="Scroller">
+                  <div ref={frontPageRef}>
+                    <FrontPage />
+                  </div>
+                  <Divider orientation="horizontal" style={{ height: 10 }} />
+                  <div ref={projectsRef}>
+                    <Projects
+                      loading={loading}
+                      projects={projectsList}
+                      onProjectClick={(key) => void setCurrentProjectId(key)}
+                    />
+                  </div>
+                </div>
               </div>
-              <Divider orientation="horizontal" style={{ height: 10 }} />
-              <div ref={projectsRef}>
-                <Projects
-                  loading={loading}
-                  projects={projectsList}
-                  onProjectClick={(key) => void setCurrentProjectId(key)}
-                />
-              </div>
-            </div>
-          </div>
+            ),
+            [loading, projectsList.length]
+          )}
         </div>
         <div className="AppBackground">
-          <Fade in={currentId === 0} unmountOnExit>
-            <div>
-              <Code />
-            </div>
-          </Fade>
+          <Hidden xsDown>
+            <Fade in={currentId === 0} unmountOnExit>
+              <div>
+                <Code />
+              </div>
+            </Fade>
+          </Hidden>
           <Fade in={currentId === 1}>
             <div>
               <ProjectInfo project={projectsList[currentProjectId]} />
