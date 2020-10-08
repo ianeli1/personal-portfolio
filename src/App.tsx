@@ -63,6 +63,8 @@ function App(props: AppProps) {
     selected: "AppBarTabSelected",
   };
 
+  const isLg = isWidthUp("lg", props.width);
+
   return (
     <>
       {useMemo(
@@ -100,16 +102,15 @@ function App(props: AppProps) {
         [currentId]
       )}
       <Container className="AppContainer">
-        <div
-          className={`AppFront AppFront${
-            isWidthUp("lg", props.width) ? currentId + 1 : "Mobile"
-          }`}
-        >
+        <div className={`AppFront AppFront${isLg ? currentId + 1 : "Mobile"}`}>
           {useMemo(
             () => (
               <div>
                 <div className="Scroller">
-                  <div ref={frontPageRef}>
+                  <div
+                    ref={frontPageRef}
+                    style={{ overflowY: isLg ? "hidden" : undefined }}
+                  >
                     <FrontPage />
                   </div>
                   <Divider orientation="horizontal" style={{ height: 10 }} />
