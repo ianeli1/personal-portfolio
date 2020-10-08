@@ -5,6 +5,15 @@
   flex-direction: column;
   padding-top: 5%;
   padding-left: 5%;
+  height: 110vh;
+}
+
+.FrontPageMobile {
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5%;
   height: 100vh;
 }
 
@@ -12,7 +21,12 @@
   position: relative;
 }
 
-.FloatingBox1 > * {
+.FloatingBoxMobile {
+  padding-top: 5%;
+}
+
+.FloatingBox1 > *,
+.FloatingBoxMobile > * {
   margin: 0;
 }
 /*hola,*/
@@ -22,8 +36,15 @@
   color: #cda869;
 }
 
+.FloatingBoxMobile > h1 {
+  font-family: monospace;
+  font-size: 5rem;
+  color: #cda869;
+}
+
 /*my name is*/
-.FloatingBox1 > h2 {
+.FloatingBox1 > h2,
+.FloatingBoxMobile > h2 {
   color: #333333;
   font-size: 3rem;
   line-height: 4rem;
@@ -31,7 +52,8 @@
 }
 
 /*firstName*/
-.FloatingBox1 > h3 {
+.FloatingBox1 > h3,
+.FloatingBoxMobile > h3 {
   color: #111111;
   font-size: 8rem;
   font-family: sans-serif;
@@ -44,6 +66,13 @@
   color: #111111;
   font-size: 8rem;
   line-height: 7rem;
+}
+
+.FloatingBoxMobile > h4 {
+  font-family: monospace;
+  color: #111111;
+  font-size: 6rem;
+  line-height: 5rem;
 }
 
 .FloatingBox2 {
@@ -82,7 +111,7 @@
   background-color: #505050;
   color: #cda869;
   font-family: Consolas;
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 200;
 }
 
@@ -104,5 +133,12 @@
   width: 20vw;
   height: auto;
   right: 50%;
+  top: -15%;
+  fill: #cda869;
+}
+
+.SignatureMobile {
+  width: 80%;
+  height: auto;
   fill: #cda869;
 }

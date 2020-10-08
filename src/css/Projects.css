@@ -1,7 +1,8 @@
 .Project {
   min-height: 100vh;
   padding: 5% 5% 5%;
-  max-width: 70%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .ProjectTitleBox > h1 {

@@ -19,10 +19,35 @@
   font-size: 3rem;
   line-height: 3rem;
   color: #cda869;
+  box-sizing: border-box;
 }
 
 .ProjectInfoInner > p {
   font-family: Consolas;
   font-size: 2.5rem;
   color: white;
+}
+
+.ProjectInfoModal {
+  margin: 64px;
+  overflow: hidden;
+  overflow-y: auto;
+  border: 3px solid #cda869;
+  background-color: #444444;
+}
+
+.ProjectInfoModal > div {
+  outline: 0 !important;
+}
+
+.ProjectInfoModal > div > div {
+  background-color: #222222;
+}
+
+.ProjectInfoModal > div > div > h1 {
+  font-size: 2rem;
+}
+
+.ProjectInfoModal > div > div > p {
+  font-size: 2rem;
 }

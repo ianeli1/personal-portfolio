@@ -76,6 +76,17 @@
   transition: clip-path 500ms;
 }
 
+.AppFrontMobile {
+  filter: none;
+  transition: filter 500ms;
+  pointer-events: auto;
+}
+
+.AppFrontMobile > div {
+  clip-path: none;
+  transition: clip-path 500ms;
+}
+
 .AppBackground {
   position: absolute;
   background: #222222;
@@ -114,4 +125,16 @@
 
 .AppBarTabSelected {
   color: #cda869 !important;
+}
+
+.EpicDivIdkIRanOutOfNames {
+  position: relative;
+  background-color: #111111;
+  flex-grow: 1;
+}
+
+.EpicDivIdkIRanOutOfNames > div {
+  position: absolute;
+  left: 2%;
+  width: 100%;
 }
