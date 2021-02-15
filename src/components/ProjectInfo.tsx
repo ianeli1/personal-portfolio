@@ -1,7 +1,7 @@
 import { Backdrop, Fade, isWidthUp, Modal, withWidth } from "@material-ui/core";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
 import Axios from "axios";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "../css/ProjectInfo.css";
 
 interface ProjectInfoProps {
@@ -19,6 +19,18 @@ export function ProjectInfoRaw(props: ProjectInfoProps) {
   );
 
   const isLg = isWidthUp("lg", props.width);
+
+  const getLanguages = useCallback(async (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault()
+    if (project.languages_url) {
+      const req = await Axios.get(project.languages_url);
+      if ((req.status = 200)) {
+        setLanguages(req.data);
+      } else {
+        console.error("Couldn't get data from GitHub");
+      }
+    }
+  }, [project.languages_url])  
 
   const content = useMemo(
     () => (
@@ -55,7 +67,7 @@ export function ProjectInfoRaw(props: ProjectInfoProps) {
                   .reduce((acc: string, cv) => `${acc} ${cv},`, "")
                   .slice(1, -1)}
                 {Object.keys(languages).length === 1 && (
-                  <a onClick={getLanguages} style={{ cursor: "pointer" }}>
+                  <a onClick={getLanguages} style={{ cursor: "pointer" }} href="/">
                     , ...
                   </a>
                 )}
@@ -82,24 +94,16 @@ export function ProjectInfoRaw(props: ProjectInfoProps) {
         </div>
       </>
     ),
-    [project, languages]
+    [project, languages, getLanguages]
   );
 
   useEffect(() => {
     top.current?.scrollIntoView({ behavior: "smooth" });
     setLanguages(project.language ? { [project.language]: 1 } : null);
-  }, [props.project.name]);
+  }, [props.project.name, project.language]);
 
-  async function getLanguages() {
-    if (project.languages_url) {
-      const req = await Axios.get(project.languages_url);
-      if ((req.status = 200)) {
-        setLanguages(req.data);
-      } else {
-        console.error("Couldn't get data from GitHub");
-      }
-    }
-  }
+  
+
 
   function getDateDif(x: string) {
     const date1 = new Date(x);

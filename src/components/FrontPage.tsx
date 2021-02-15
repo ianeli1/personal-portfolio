@@ -47,7 +47,7 @@ export function FrontPageRaw(props: FrontPageProps) {
         )}
       </div>
     ),
-    [isLg]
+    [isLg, descriptionBox, props.width]
   );
 }
 

@@ -27,7 +27,7 @@ function useSubscribe(fullText: string) {
           await new Promise((resolve) =>
             setTimeout(() => {
               setText(fullText.slice(0, currentId));
-              setTimeout(() => void resolve(), interval * 1.5);
+              setTimeout(() => void resolve(1), interval * 1.5);
             }, interval * 1.5)
           );
         }
@@ -40,7 +40,7 @@ function useSubscribe(fullText: string) {
     }, interval);
     setTimeout(() => setDone(true), timeout);
     return () => void clearInterval(int);
-  }, [fullText]);
+  }, [fullText, currentId]);
 
   return { text, done };
 }
@@ -76,7 +76,7 @@ export default function Code() {
             </Tabs>
           </AppBar>
         ),
-        [currId]
+        [currId, tabClass, tsLogo]
       )}
 
       <div className="CodeEditor">

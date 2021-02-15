@@ -99,7 +99,7 @@ function App(props: AppProps) {
             </Tabs>
           </AppBar>
         ),
-        [currentId]
+        [currentId, tabClasses]
       )}
       <Container className="AppContainer">
         <div className={`AppFront AppFront${isLg ? currentId + 1 : "Mobile"}`}>
@@ -132,7 +132,7 @@ function App(props: AppProps) {
                 </div>
               </div>
             ),
-            [loading, projectsList.length]
+            [loading, isLg, projectsList]
           )}
         </div>
         <div className="AppBackground">
